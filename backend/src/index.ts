@@ -3,11 +3,26 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ExpressContextFunctionArgument } from "@apollo/server/express4";
 import { Request, Response } from "express";
+import { prisma } from "./lib/db";
 
 const typeDefs = `#graphql
+  type User {
+    id: ID!
+    email: String!
+    firstName: String!
+    lastName: String!
+    profileImageUrl: String
+    createdAt: String!
+    updatedAt: String!
+  }
+
   type Query {
     hello: String
     say(name: String!): String
+  }
+
+  type Mutation {
+    createUser(email: String!, password: String!, firstName: String!, lastName: String!): User
   }
 `;
 
@@ -15,6 +30,11 @@ const resolvers = {
   Query: {
     hello: () => "Hello World!",
     say: (_: unknown, { name }: { name: string }) => `Hey ${name}, How are you?`,
+  },
+  Mutation: {
+    createUser: async (_: unknown, { email, password, firstName, lastName }: { email: string, password: string, firstName: string, lastName: string }) => {
+      return await prisma.user.create({ data: { email, password, firstName, lastName } });
+    }
   }
 };
 

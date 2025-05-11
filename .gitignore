@@ -39,6 +39,8 @@ backend/.lock-wscript
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 backend/build/Release
 backend/build
+backend/prisma/migrations
+backend/src/generated
 
 # Dependency directories
 backend/node_modules/
