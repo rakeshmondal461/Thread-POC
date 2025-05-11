@@ -1,0 +1,22 @@
+{
+  "name": "thread-app-backend",
+  "version": "1.0.0",
+  "description": "This is a POC app for Thread backend using graphql",
+  "main": "app.js",
+  "author": "Rakesh Mondal",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/index.js",
+    "dev": "tsc-watch --onSuccess \"npm start\""
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "tsc-watch": "^6.2.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.12.0",
+    "express": "^4.8.0",
+    "graphql": "^16.11.0"
+  }
+}
