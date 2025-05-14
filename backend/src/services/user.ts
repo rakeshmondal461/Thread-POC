@@ -11,7 +11,7 @@ export interface CreateUserPayload {
   password: string;
 }
 
-type getUserTokenPayload = Omit<CreateUserPayload, "firstName" | "lastName">;
+export type getUserTokenPayload = Omit<CreateUserPayload, "firstName" | "lastName">;
 
 class UserService {
   private static generateHashPassword(salt: string, password: string) {
