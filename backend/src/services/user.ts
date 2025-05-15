@@ -11,7 +11,10 @@ export interface CreateUserPayload {
   password: string;
 }
 
-export type getUserTokenPayload = Omit<CreateUserPayload, "firstName" | "lastName">;
+export type getUserTokenPayload = Omit<
+  CreateUserPayload,
+  "firstName" | "lastName"
+>;
 
 class UserService {
   private static generateHashPassword(salt: string, password: string) {
@@ -36,6 +39,19 @@ class UserService {
     });
   }
 
+  public static async getUserById(id: string) {
+    return await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        profileImageUrl: true,
+      },
+    });
+  }
+
   public static async getUserToken(payload: getUserTokenPayload) {
     const { email, password } = payload;
     const user = await prisma.user.findUnique({ where: { email: email } });
@@ -49,8 +65,12 @@ class UserService {
     if (userHashedPassword !== user.password)
       throw new Error("Invalid email or password");
 
-    const token = jwt.sign({id:user.id,email:user.email},JWT_SECRET);
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
     return token;
+  }
+
+  public static decodeJWTToken(token: string = "") {
+    return jwt.verify(token, JWT_SECRET);
   }
 }
 

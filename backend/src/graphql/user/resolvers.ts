@@ -12,6 +12,12 @@ const queries = {
     console.log("toekn", toekn);
     return toekn;
   },
+  getCurrentLoggedInUser: async (_:unknown, parameters:unknown,context:any) => {
+    console.log("context",context);
+    if(context && context.user){
+      return context.user;
+    }
+  },
 };
 const mutations = {
   createUser: async (_: unknown, payload: CreateUserPayload) => {

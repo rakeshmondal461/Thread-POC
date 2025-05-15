@@ -1,11 +1,9 @@
 export const typeDefs = `#graphql
   type User {
-    id: ID
+    id: ID!
     email: String
     firstName: String
     lastName: String
     profileImageUrl: String
-    createdAt: String
-    updatedAt: String
   }
 `;
